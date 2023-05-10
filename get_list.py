@@ -1,5 +1,5 @@
-from category import get_pages_and_subcategories
-from wikidata import get_articles_from_sparql
+from . import category
+from . import wikidata
 
 def get_vsafe_set():
     search_depth = 2
@@ -60,9 +60,9 @@ def get_vsafe_set():
     }
     """
 
-    category_set = get_pages_and_subcategories(categories_list, search_depth)['pages']
-    sparql_set_1 = set(get_articles_from_sparql(sparql_query_1))
-    sparql_set_2 = set(get_articles_from_sparql(sparql_query_2))
+    category_set = category.get_pages_and_subcategories(categories_list, search_depth)['pages']
+    sparql_set_1 = set(wikidata.get_articles_from_sparql(sparql_query_1))
+    sparql_set_2 = set(wikidata.get_articles_from_sparql(sparql_query_2))
 
     pageset = category_set | sparql_set_1 | sparql_set_2
     return sorted(list(pageset))
