@@ -4,6 +4,7 @@ Python functions to retrieve lists of article URLs. Currently this includes:
 * Wikidata Query Service queries, with "?item" for the Wikidata item ID and "?article" for the article URL
 
 Future plans include:
+* Page links on a specific page, filterable by namespace
 * Compositions, which are either unions or intersections of existing lists, including other compositions
 
 ## Setup
