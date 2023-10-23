@@ -1,0 +1,98 @@
+---
+domain: en.wikipedia.org
+sets:
+  vaccine-safety:
+    operation: union
+    category depth: 2
+    category list:
+      - Vaccines
+      - Vaccine hesitancy
+      - World Health Organization essential medicines (vaccines)
+      - Anti-vaccination activists
+      - Anti-vaccination in the United States
+      - Anti-vaccination media
+      - Anti-vaccination organizations
+      - COVID-19 vaccine misinformation and hesitancy
+      - Animal vaccines
+      - Cancer vaccines
+      - Combination vaccines
+      - COVID-19 vaccines
+      - COVID-19 vaccines by country
+      - Deployment of COVID-19 vaccines
+      - COVID-19 vaccination by continent
+      - Hepatitis vaccines
+      - HIV vaccine research
+      - Inactivated vaccines
+      - Influenza vaccines
+      - Live vaccines
+      - Meningococcal vaccines
+      - MMR vaccine and autism
+      - Nucleic acid vaccines
+      - DNA vaccines
+      - RNA vaccines
+      - Smallpox vaccines
+      - Subunit vaccines
+      - Toxoid vaccines
+      - Tuberculosis vaccines
+      - Vaccines against drugs
+      - Vaccinia
+      - Viral vector vaccines
+    wikidata sparql:
+      - |
+        select ?item ?article where {
+          ?item wdt:P31* wd:Q105967696.
+          ?article schema:about ?item;
+                   schema:isPartOf <https://en.wikipedia.org/>.
+        }
+      - |
+        select distinct ?item ?article where {
+          ?item wdt:P31 wd:Q5633421;
+                rdfs:label ?itemLabel.
+          filter(contains(?itemLabel, "Vaccine"))
+          ?article schema:about ?item;
+                   schema:isPartOf <https://en.wikipedia.org/>.
+        }
+  osh-chemicals:
+    operation: union
+    category depth: 2
+    category list:
+      - Toxic effects of substances chiefly nonmedicinal as to source
+      - Teratogens
+      - Poisoning by drugs, medicaments and biological substances
+    wikidata sparql:
+      - |
+        SELECT DISTINCT 
+          ?item ?itemLabel ?article
+        WHERE {
+          ?chemical wdt:P31 wd:Q113145171;
+                    wdt:P1542 ?item.
+          {
+            ?item wdt:P279* wd:Q21167512 .
+          } UNION {
+            ?item wdt:P279* wd:Q68182219 .
+          }
+            ?article schema:about ?item;
+                             schema:isPartOf <https://en.wikipedia.org/>.
+          SERVICE wikibase:label {
+            bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en".
+          }
+        }
+      - |
+        SELECT DISTINCT 
+          ?item ?itemLabel ?article ?exposure ?exposureLabel
+        WHERE {
+          ?item wdt:P31 wd:Q113145171;
+                wdt:P1542 ?exposure.
+          {
+            ?exposure wdt:P279* wd:Q21167512 .
+          } UNION {
+            ?exposure wdt:P279* wd:Q68182219 .
+          }
+          OPTIONAL {
+            ?article schema:about ?item;
+                     schema:isPartOf <https://en.wikipedia.org/>.
+          }
+          SERVICE wikibase:label {
+            bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en".
+          }
+        }
