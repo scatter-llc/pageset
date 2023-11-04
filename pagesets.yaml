@@ -1,6 +1,21 @@
 ---
 domain: en.wikipedia.org
 sets:
+  world-news:
+    operation: union
+    wikidata sparql:
+      - |
+        select ?item ?article where {
+          ?item wdt:P31* wd:Q11032.
+          ?article schema:about ?item;
+                   schema:isPartOf <https://en.wikipedia.org/>.
+        }
+      - |
+        select ?item ?article where {
+          ?item wdt:P452 wd:Q11030.
+          ?article schema:about ?item;
+                   schema:isPartOf <https://en.wikipedia.org/>.
+        }
   vaccine-safety:
     operation: union
     category depth: 2
@@ -52,7 +67,7 @@ sets:
           ?article schema:about ?item;
                    schema:isPartOf <https://en.wikipedia.org/>.
         }
-  osh-chemicals:
+  osh-hazards-chemical:
     operation: union
     category depth: 2
     category list:
