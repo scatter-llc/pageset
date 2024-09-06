@@ -78,7 +78,7 @@ def get_pages_and_subcategories(categories, depth=0, lang='en'):
             encoded = quote(title.replace(' ', '_'))
             ns = member['ns']
             # Namespace 14 corresponds to categories
-            if ns == 14 and current_depth < depth:
+            if ns == 14 and int(current_depth) < int(depth):
                 subcategory = title.replace("Category:", "")
                 results['categories'].add(subcategory)
                 process_category_members(subcategory, current_depth + 1)
